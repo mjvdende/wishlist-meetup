@@ -1,5 +1,5 @@
 FROM nginx:1.13.3-alpine
-MAINTAINER NS InfoPlus
+MAINTAINER Ruben Geertsema
 
 # Add portaal nginx config
 ADD nginx.conf /etc/nginx/nginx.conf
