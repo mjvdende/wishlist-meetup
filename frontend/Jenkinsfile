@@ -35,7 +35,7 @@ try {
 
     stage('unit test with coverage') {
       try {
-        // ADD unit test step
+        // complete step
       } finally {
         junit allowEmptyResults: false, testResults: 'reports/unit/*.xml'
         publishHTML([allowMissing: false, alwaysLinkToLastBuild: true, keepAll: true, reportDir: 'reports/unit', reportFiles: 'testresults.html', reportName: 'Unit Test Report'])
@@ -68,15 +68,15 @@ try {
   if (env.BRANCH_NAME == 'master') {
     node() {
       stage('build package') {
-        sh 'npm run prod'
+        // complete step
       }
 
       stage('build docker') {
         // complete step
-        // For this step we cannot use the npm script we vreated in part 2. For the continuous deployment we need to now
+        // For this step we cannot use the npm script we created in part 2. For the continuous deployment we need to now
         // which code is running. If we always use the docker tag latest, we will never get to know this. To solve this
         // issue we use the git commit tag as docker tag. Now we know exactly which code is running in production.
-        docker.build("${imageName}:${commitHash}")
+        // Add the following: docker.build("<image-name>:<commit-hash>").
       }
     }
 
@@ -92,7 +92,13 @@ try {
 
     node() {
       stage('rollout frontend prod') {
-        // Change the line [image: frontend:latest] into [image: frontend:commitHash] and pipe the result to kubctl
+        // complete step
+        // This step has already been completed for you. But it's important to understand what happens here. Since we
+        // have build an image with a git commit tag, we need to deploy the image with this tag to Kubernetes. If you
+        // take a look at the kubernetes deployment descriptor you can see that it is always deploying the image
+        // frontend:latest. To solve this issue we use the stream editor sed. So, the below command changes the line
+        // [image: frontend:latest] into [image: frontend:commitHash] and pipes the result to kubctl. Now we know
+        // for sure that we are deploying the correct image to Kubernetes.
         sh "sed -r 's/(\\s+image:{1}.+:)(.+)/\\1${commitHash}/' kubernetes/frontend.yml | kubectl apply -n prod -f -"
       }
     }
