@@ -30,12 +30,12 @@ try {
     }
 
     stage('install packages') {
-      sh 'npm install'
+      // complete step
     }
 
     stage('unit test with coverage') {
       try {
-        sh 'npm run test-headless'
+        // ADD unit test step
       } finally {
         junit allowEmptyResults: false, testResults: 'reports/unit/*.xml'
         publishHTML([allowMissing: false, alwaysLinkToLastBuild: true, keepAll: true, reportDir: 'reports/unit', reportFiles: 'testresults.html', reportName: 'Unit Test Report'])
@@ -44,12 +44,12 @@ try {
     }
 
     stage('linting') {
-      sh 'npm run lint'
+      // complete step
     }
 
     stage('run protractor tests') {
       try {
-        sh 'npm run e2e-headless'
+        // complete step
       } finally {
         step([$class: 'CucumberReportPublisher', jsonReportDirectory: "reports/e2e/json"])
       }
@@ -57,7 +57,10 @@ try {
 
     if (env.BRANCH_NAME != 'master') {
       stage('check build docker') {
-        docker.build("${imageName}")
+        // complete step
+        // Here we will not use the earlier created npm script but we will use a Jenkins docker command.
+        // Add the following: docker.build("<image-name>"). Hint: the image name is defined as a variable on top
+        // of this Jenkinsfile.
       }
     }
   }
@@ -69,6 +72,10 @@ try {
       }
 
       stage('build docker') {
+        // complete step
+        // For this step we cannot use the npm script we vreated in part 2. For the continuous deployment we need to now
+        // which code is running. If we always use the docker tag latest, we will never get to know this. To solve this
+        // issue we use the git commit tag as docker tag. Now we know exactly which code is running in production.
         docker.build("${imageName}:${commitHash}")
       }
     }
