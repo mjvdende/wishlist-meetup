@@ -50,7 +50,7 @@ package.json. We will use these scripts eventually in the pipeline.
 build pipeline?
 
 Note: test results can be viewed in the [reports](./frontend/reports) folder. Test reporting is configured in the 
-[karma configuration](./frontend/karma.conf). Notice the part below:
+[karma configuration](./frontend/karma.conf.js). Notice the part below:
 
 ```
 reporters: config.angularCli && config.angularCli.codeCoverage
