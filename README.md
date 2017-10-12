@@ -40,7 +40,7 @@ The first stage in the Jenkins build pipeline is to install all packages. For no
 
 ### 3) Run unit tests
 Karma is used for the frontend unit tests. For this meetup 
-we have only one simple test [unit test](./frontend/src/app/app.component.spec.ts) and do not focus on writing extra 
+we have only one simple [unit test](./frontend/src/app/app.component.spec.ts) and do not focus on writing extra 
 unit tests (but feel free to add some).
 
 * First make sure to have the latest google chrome browser installed
@@ -50,7 +50,7 @@ package.json. We will use these scripts eventually in the pipeline.
 build pipeline?
 
 Note: test results can be viewed in the [reports](./frontend/reports) folder. Test reporting is configured in the 
-[karma configuration](./frontend/karma.con. Notice the part below:
+[karma configuration](./frontend/karma.conf). Notice the part below:
 
 ```
 reporters: config.angularCli && config.angularCli.codeCoverage
