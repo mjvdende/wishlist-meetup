@@ -36,7 +36,11 @@ Now trigger the pipeline and watch the magic happen.
 Note: to see the full effect you could first delete the frontend from the Kubernetes cluster.
 
 ### Extra) Multi branch
-Create a new feature branch and see how the Jenkins pipeline deals with it. 
+If there is time left, try to:
+* Create a new feature branch and see how the Jenkins pipeline deals with it.
+* Create a pipeline for the backend
+* Create some extra protractor tests
+* Just look around
 
 ## END PART 3
 Congratulations, you have reached the end of this meetup! You can checkout the branch named `complete` to see all parts
